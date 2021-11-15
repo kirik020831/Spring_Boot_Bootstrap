@@ -2,6 +2,7 @@ package springboot.SpringBoot.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -26,6 +27,11 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return getRole();
+    }
+
+    @Override
+    public String toString() {
+        return role;
     }
 }
 

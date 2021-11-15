@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> listUsers();
+    List<User> getListUsers();
 
     void saveUser(User user);
 
@@ -19,4 +19,5 @@ public interface UserService {
 
     User getByName(String userName) throws NotFoundException;
 
+    User getByEmail(String email) throws NotFoundException;
 }

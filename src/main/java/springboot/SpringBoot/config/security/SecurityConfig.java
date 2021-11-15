@@ -1,4 +1,4 @@
-package springboot.SpringBoot.security;
+package springboot.SpringBoot.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import springboot.SpringBoot.security.handler.SuccessUserHandler;
+import springboot.SpringBoot.config.security.handler.SuccessUserHandler;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -40,12 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/user")
                 //указываем что будет видно ролям Admin и User
-                .hasAnyRole("ADMIN, USER")
+                .access("hasAnyAuthority('ADMIN', 'USER')")
                 .antMatchers("/**")
                 // Все что дальше /** видно только роли Admin
-                .hasAnyRole("ADMIN")
+                .access("hasAnyAuthority('ADMIN')")
                 .and()
                 .formLogin() // Spring сам подставит свою логин форму
+                .loginPage("/login")  //указываем свою форму
+                .usernameParameter("email")
                 .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенаправления по ролям
                 // Handler - обработчик успешной аутентификации
                 //.failureHandler(authenticationFailureHandler) //указываем логику обработки при неудачном логине

@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listUsers() {
+    public List<User> getListUsers() {
         return userRepository.findAll();
     }
 
@@ -62,6 +62,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(userName);
         if (user == null) {
             throw new NotFoundException(userName);
+        }
+        return user;
+    }
+
+    @Override
+    public User getByEmail(String email) throws NotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new NotFoundException(email);
         }
         return user;
     }

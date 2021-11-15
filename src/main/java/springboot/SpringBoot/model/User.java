@@ -26,11 +26,11 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "name")
-    private String firstName;
-
     @Column(name = "last_name")
     private String last_name;
+
+    @Column(name = "age")
+    private byte age;
 
     @Column(name = "email")
     private String email;
